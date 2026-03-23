@@ -1,0 +1,6 @@
+# Build artifacts
+*.o
+student_mgmt
+
+# Runtime data file
+students.dat
