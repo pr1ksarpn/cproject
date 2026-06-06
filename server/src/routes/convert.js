@@ -24,7 +24,7 @@ router.post('/', upload.array('files', 10), async (req, res) => {
   const results = [];
   const errors = [];
 
-  await Promise.all(
+  await Promise.allSettled(
     req.files.map(async (file) => {
       const extension = path.extname(file.originalname).toLowerCase();
 

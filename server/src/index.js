@@ -6,10 +6,21 @@ const express = require('express');
 const convertRoute = require('./routes/convert');
 
 const app = express();
+const allowedOrigins = (process.env.CLIENT_ORIGIN || 'http://localhost:5173')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN || '*',
+    origin(origin, callback) {
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+
+      callback(null, allowedOrigins.includes(origin));
+    },
   })
 );
 
